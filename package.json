@@ -17,6 +17,6 @@
     "bns": "^0.15.0"
   },
   "devDependencies": {
-    "hipr": "^0.1.5"
+    "hipr": "^0.2.0"
   }
 }
