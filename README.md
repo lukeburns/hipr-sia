@@ -1,17 +1,25 @@
 # sia hipr resolver
 
-resolves `_skyname` hip5 protocol ns records (but recursively) using [hipr](https://github.com/lukeburns/hipr)
+resolves `_skyname` [hip5](https://github.com/handshake-org/HIPs/blob/master/HIP-0005.md) protocol ns records (but recursively) using [hipr](https://github.com/lukeburns/hipr). note this currently depends on sia gateways with volatile uptime, so it's not very usable --- ideally, it should resolve using a local sia node.
 
 ## usage
 
+`hipr-sia` is [hipr](https://github.com/lukeburns/hipr) middleware. 
+
+first install [hipr](https://github.com/lukeburns/hipr), then you can run
+
 ```
-> git clone https://github.com/lukeburns/hipr-sia
-> cd hipr-sia
-> npm install
-> node index.js # start recursive resolver on port 5333 using root server 149.248.21.56
+hipr install hipr-sia
+hipr hipr-sia 127.0.0.1:5333 1.1.1.1
 ```
 
-in a new shell
+this will start a recursive server on port 5333 capable of resolving zone files from sia using Cloudflare's public resolver as a stub resolver. If you want to resolve handshake names as well, and you are running [hsd](https://github.com/handshake-org/hsd) with an authoritative server on port 5349, then start hipr with
+
+```
+hipr hipr-sia 127.0.0.1:5333 127.0.0.1:5349
+```
+
+now, in a new shell
 
 ```
 > dig @127.0.0.1 -p 5333 example.chan0
