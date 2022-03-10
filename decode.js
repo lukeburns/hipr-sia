@@ -10,7 +10,9 @@ const decode = skylink =>
     .replace(/\=/g, '')
 
 if (process.argv[2]) {
-  process.stdout.write(decode(process.argv[2]))
+  try {
+    process.stdout.write(decode(process.argv[2]))
+  } catch (e) {}
 }
 
 module.exports = decode 
